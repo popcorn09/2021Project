@@ -52,13 +52,22 @@ export default function addRecipe({ navigation }) {
             onChangeText={name => setName(name)}/>
         </View>
         <View style={styles.inputView}>
-          <Text style={styles.inputText}> Ingridients: </Text>
+          <Text style={styles.inputText}> Ingredients: </Text>
           <TextInput
             style={styles.inputIngredients}
             onChangeText={ingredients => ingredientSet(ingredients)}
             multiline={true}
             numberOfLine={10}/>
         </View>
+        <View style={styles.inputView}>
+          <Text style={styles.inputText}> Procedures: </Text>
+          <TextInput
+            style={styles.inputIngredients}
+            onChangeText={ingredients => ingredientSet(ingredients)}
+            multiline={true}
+            numberOfLine={10}/>
+        </View>
+        
         
       </KeyboardAwareScrollView>
 
@@ -73,6 +82,7 @@ export default function addRecipe({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#DBF3FA",
   },
   inputView: {
     marginHorizontal: 30,
@@ -97,17 +107,20 @@ const styles = StyleSheet.create({
   },
   inputText: {
     fontSize: 20,
+    marginBottom: 10,
   },
   doneButton: {
     flex: 1,
     padding: 10,
+    margin: 70,
     fontSize: 20,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    borderRadius: 10,
+    borderRadius: 20,
     right: 35,
     bottom: 35,
-    position: "absolute",
+    position: "relative",
+    left: 1,
   },
 });

@@ -4,7 +4,7 @@ import { FlatList, StyleSheet, Text, View, TouchableOpacity, Modal, TextInput } 
 export var recipies = [
   { 
     title: "Chicken Adobo",
-    text: "Ingredients (for 4 serving) \n\n" +
+    text: "(for 4 serving) \n\n" +
     "- 2 lb chicken (910 g) \n" +
     "- 3 dried bay leaves \n" +
     "- 5 tablespoons soy sauce \n" +
@@ -16,7 +16,7 @@ export var recipies = [
     "- salt, to taste \n" +
     "- whole peppercorn \n" +
     "\n" +
-    "Preparation \n\n" +
+    "PROCEDURES \n\n" +
     "1. In a container or a plastic food bag, combine soy sauce and garlic then marinade the chicken for 30 minutes. \n\n" +
     "2. Place a medium heat and add oil, once the oil is hot put the marinated chicken and brown (about five minutes). \n\n" +
     "3. Pour in the remaning marinade and water, then bring to boil. \n\n" +
@@ -27,8 +27,8 @@ export var recipies = [
     id: 1 
   },
   { 
-    title: "Japanese Pork Cutlet (Tonkatasu) with Curry", 
-    text: "Ingredients (for 4 servings) \n\n" +
+    title: "Japanese Pork Cutlet (Tonkatsu) with Curry", 
+    text: "(for 4 servings) \n\n" +
     "- 4 cups white rice (920 g), cooked \n\n" +
     "PORK CUTLET \n\n" +
     "- 4 boneless pork chops \n" +
@@ -49,7 +49,7 @@ export var recipies = [
     "- 3 cups water (720 ml) \n" +
     "- 1/3 cup japanese curry paste (75 g) \n" +
     "\n" +
-    "Preparation \n\n" +
+    "PROCEDURES \n\n" +
     "1. Season the pork chops on both sides with salt and pepper. \n\n" +
     "2. Cut a large slit through the side of the pork chops. \n\n" +
     "3. Place the cheese in the pocket of the pork chop. Place a slice of mozzarella on top of a shiso leaf, then fold it in half. \n\n" +
@@ -69,7 +69,7 @@ export var recipies = [
   },
   { 
     title: "Tempura Bowl", 
-    text: "Ingredients (for 2 servings) \n\n" +
+    text: "(for 2 servings) \n\n" +
     "- 4 shripms \n" +
     "- sweet potato \n" +
     "- mushroom \n" +
@@ -91,7 +91,7 @@ export var recipies = [
     "- 1/4 cup water (60 ml), hot \n" +
     "- 1 teaspoon dashi granules, japanese stock granules \n" +
     "\n" +
-    "Preparation \n\n" +
+    "PROCEDURES \n\n" +
     "1. Prepare shrimp by taking off shell and deveining. \n\n" +
     "2. Make 4 slits down the stomach. Flip shrimp on the side and diagonally slice 4 more slits on each side. (This will keep the shrimp straight when cooked.) \n\n" +
     "3. In a medium bowl, beat egg and soda water. \n\n" +
@@ -153,6 +153,7 @@ export default function Home({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#DBF3FA",
   },
   headerView: {
     backgroundColor: "#DCDCDC",
@@ -183,7 +184,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   addButton: { 
-    padding: 7,
     height: 70,
     width: 70,
     backgroundColor: "#DCDCDC",
@@ -194,9 +194,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   plusText: {
-    fontSize: 50,
+    fontSize: 45,
     fontWeight: "bold",
     color: "gray",
+    paddingBottom: 200,
   },
   recipiesList: {
     flex: 1,
