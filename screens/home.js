@@ -1,10 +1,30 @@
 import React, {useState} from "react";
-import { FlatList, StyleSheet, Text, View, TouchableOpacity, Modal, TextInput } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { SwipeListView } from "react-native-swipe-list-view";
 
-export var recipies = [
+
+
+export const images = {
+  recipes: {
+    "Chicken Adobo": require("../assets/chicken-adobo.jpg"),
+    "Japanese Pork Cutlet (Tonkatsu) with Curry": require("../assets/japanese-pork-cutlet-tonkatsu-with-curry.jpg"),
+    "Tempura Bowl": require("../assets/tempura-bowl.jpg"),
+  }
+};
+
+export const videos = {
+  recipes: {
+    "Chicken Adobo": require("../assets/chicken-adobo-vid.mp4"),
+    "Japanese Pork Cutlet (Tonkatsu) with Curry": require("../assets/japanese-pork-cutlet-tonkatsu-with-curry-vid.mp4"),
+    "Tempura Bowl": require("../assets/tempura-bowl-vid.mp4"),
+  }
+}
+
+export var recipes = [
   { 
-    title: "Chicken Adobo",
-    text: "(for 4 serving) \n\n" +
+    title: "Chicken Adobo", // Name of the Recipe
+    text: // Ingredients
+    "(for 4 serving) \n\n" +
     "- 2 lb chicken (910 g) \n" +
     "- 3 dried bay leaves \n" +
     "- 5 tablespoons soy sauce \n" +
@@ -14,9 +34,8 @@ export var recipies = [
     "- 1/4 cup cooking oil (60 ml) \n" +
     "- 1 tablespoon white sugar \n" +
     "- salt, to taste \n" +
-    "- whole peppercorn \n" +
-    "\n" +
-    "PROCEDURES \n\n" +
+    "- whole peppercorn",
+    text2: // Procedures
     "1. In a container or a plastic food bag, combine soy sauce and garlic then marinade the chicken for 30 minutes. \n\n" +
     "2. Place a medium heat and add oil, once the oil is hot put the marinated chicken and brown (about five minutes). \n\n" +
     "3. Pour in the remaning marinade and water, then bring to boil. \n\n" +
@@ -24,11 +43,11 @@ export var recipies = [
     "5. Add the vinegar, stir and simmer for 10 minutes. \n\n" +
     "6. Add the sugar, salt, and stir. Then remove the heat. \n\n" +
     "7. Enjoy!", 
-    id: 1 
   },
   { 
-    title: "Japanese Pork Cutlet (Tonkatsu) with Curry", 
-    text: "(for 4 servings) \n\n" +
+    title: "Japanese Pork Cutlet (Tonkatsu) with Curry", // Name of the Recipe
+    text: // Ingredients
+    "(for 4 servings) \n\n" +
     "- 4 cups white rice (920 g), cooked \n\n" +
     "PORK CUTLET \n\n" +
     "- 4 boneless pork chops \n" +
@@ -47,9 +66,8 @@ export var recipies = [
     "- 2 medium potatoes, cubed \n" +
     "- 1 medium carrot, diced \n" +
     "- 3 cups water (720 ml) \n" +
-    "- 1/3 cup japanese curry paste (75 g) \n" +
-    "\n" +
-    "PROCEDURES \n\n" +
+    "- 1/3 cup japanese curry paste (75 g)",
+    text2: // Procedures
     "1. Season the pork chops on both sides with salt and pepper. \n\n" +
     "2. Cut a large slit through the side of the pork chops. \n\n" +
     "3. Place the cheese in the pocket of the pork chop. Place a slice of mozzarella on top of a shiso leaf, then fold it in half. \n\n" +
@@ -64,12 +82,12 @@ export var recipies = [
     "12. Cook for another 10 minutes on low heat, then set aside. \n\n" +
     "13. Slice the pork cutlets into ½-inch (1-cm) slices. \n\n" +
     "14. To serve, place the pork cutlet slices over the rice, then pour a generous serving of curry on half of the pork. \n\n" +
-    "15. Enjoy!", 
-    id: 2 
+    "15. Enjoy!",
   },
   { 
-    title: "Tempura Bowl", 
-    text: "(for 2 servings) \n\n" +
+    title: "Tempura Bowl", // Name of the Recipe
+    text: // Ingredients
+    "(for 2 servings) \n\n" +
     "- 4 shripms \n" +
     "- sweet potato \n" +
     "- mushroom \n" +
@@ -89,9 +107,8 @@ export var recipies = [
     "\n" +
     "OPTIONAL \n\n" +
     "- 1/4 cup water (60 ml), hot \n" +
-    "- 1 teaspoon dashi granules, japanese stock granules \n" +
-    "\n" +
-    "PROCEDURES \n\n" +
+    "- 1 teaspoon dashi granules, japanese stock granules",
+    text2: // Procedures
     "1. Prepare shrimp by taking off shell and deveining. \n\n" +
     "2. Make 4 slits down the stomach. Flip shrimp on the side and diagonally slice 4 more slits on each side. (This will keep the shrimp straight when cooked.) \n\n" +
     "3. In a medium bowl, beat egg and soda water. \n\n" +
@@ -101,24 +118,20 @@ export var recipies = [
     "7. For the dipping sauce, combine soy sauce and mirin. If using, dissolve dashi in the hot water and add to the soy sauce and mirin. \n\n" +
     "8. Arrange assorted tempura on a bowl of rice. \n\n" +
     "9. Enjoy!", 
-    id: 3 
   },
 ];
 
+//=========================================================================================
 export default function Home({ navigation }) {
 
   const [update, setUpdate] = useState(false);
 
   const up = () => {
-    if (update == false) {
-      setUpdate(true);
-    } else if (update == true) {
-      setUpdate(false);
-    }
+    setUpdate(true);
   }
 
   const moreInfoPressHandler = (item) => {
-    console.log("Open more info with ID = " + item.id);
+    console.log("Open more info with ID = " + item.title);
     // Put here a code to open the next View which contains more info about the recipe
     navigation.navigate("AboutRecipe", item);
   }
@@ -126,24 +139,46 @@ export default function Home({ navigation }) {
     navigation.navigate("AddRecipe");
   }
 
+  const deleteRecipe = (item) => {
+    console.log(item.title);
+    for (var index = 0; index < recipes.length; index++) {
+      if (recipes[index].title == item.title) {
+        recipes.splice(index, 1);
+        if (update == true) {
+          setUpdate(false);
+        } else {
+          setUpdate(true);
+        }
+        console.log(recipes);
+      }
+    }
+  }
+
   return (
     <View style={styles.container}>
 
-      <FlatList style={styles.recipiesList}
-        keyExtractor={(item) => item.id.toString()}
-        data={recipies}
-        //extraData={}
+      <SwipeListView style={styles.recipesList}
+        keyExtractor={(item) => item.title}
+        data={recipes}
+        extraData={update}
+        rightOpenValue={-90}
+        disableRightSwipe={true}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => moreInfoPressHandler(item)}>
-            <View key={item.key} style={styles.noteView}>
-              <Text style={styles.noteTitle}>{item.title}</Text>
+          <TouchableOpacity activeOpacity={1} onPress={() => moreInfoPressHandler(item)}>
+            <View key={item.key} style={styles.recipeView}>
+              <Text numberOfLines={2} style={styles.recipeTitle}>{item.title}</Text>
             </View>
+          </TouchableOpacity>
+        )}
+        renderHiddenItem={({ item }) => (
+          <TouchableOpacity key={item.key} style={styles.hiddenDelete} onPress={() => deleteRecipe(item)}>
+              <Text style={styles.hiddenDeleteText}> Delete </Text>
           </TouchableOpacity>
         )}
       />
 
       <TouchableOpacity style={styles.addButton} onPress={openAddRecipe}>
-        <Text style={styles.plusText}>+</Text>
+        <Text style={styles.plusText}> + </Text>
       </TouchableOpacity>
       
     </View>
@@ -155,33 +190,39 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#DBF3FA",
   },
-  headerView: {
-    backgroundColor: "#DCDCDC",
+  recipesList: {
+    flex: 1,
+    marginBottom: 10,
+    backgroundColor: "#DBF3FA",
   },
-  headerTitle: {
-    textTransform: "uppercase",
-    paddingTop: 25,
-    margin: 20,
-    fontSize: 30,
-    fontWeight: "bold",
-  },
-  noteView: {
+  recipeView: {
     backgroundColor: "white",
     borderRadius: 20,
     marginTop: 10,
     marginHorizontal: 20,
-    padding: 20,
+    paddingHorizontal: 30,
+    justifyContent: "center",
+    height: 80,
   },
-  noteTitle: {
+  recipeTitle: {
     color: "#3C3C3C",
     fontSize: 20,
     fontWeight: "bold",
   },
-  noteText: {
-    color: "#3C3C3C",
-    fontSize: 16,
-    fontWeight: "bold",
-    marginLeft: 10,
+  hiddenDelete: {
+    backgroundColor: "red",
+    borderRadius: 20,
+    marginTop: 11,
+    marginLeft: 25,
+    marginRight: 20,
+    height: 78,
+    justifyContent: "center",
+  },
+  hiddenDeleteText: {
+    fontSize: 20,
+    color: "white",
+    marginRight: 20,
+    textAlign: "right",
   },
   addButton: { 
     height: 70,
@@ -192,15 +233,12 @@ const styles = StyleSheet.create({
     right: 30,
     bottom: 30,
     alignItems: "center",
+    justifyContent: "center",
   },
   plusText: {
     fontSize: 45,
     fontWeight: "bold",
     color: "gray",
-    paddingBottom: 200,
-  },
-  recipiesList: {
-    flex: 1,
-    marginBottom: 10,
+    marginBottom: 5,
   },
 });

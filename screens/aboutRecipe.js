@@ -1,18 +1,20 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from "react-native";
-import { recipies } from "../screens/home";
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, Dimensions } from "react-native";
+import { recipes, images, videos } from "../screens/home";
+import { Video } from "expo-av";
 
 
 
 export default function aboutRecipe({ navigation }) {
 
-  const deleteRecipe = (id) => {
-    for (var index = 0; index < recipies.length; index++) {
-      if (recipies[index].id == id) {
-        recipies.splice(index, 1);
-        navigation.goBack();
-      }
-    }
+  const video = React.useRef(null);
+  const [status, setStatus] = React.useState({});
+
+  var image = images.recipes[ navigation.getParam("title") ];
+  var vid = videos.recipes[ navigation.getParam("title") ];
+
+  const editRecipe = (title) => {
+
   }
   
   return (
@@ -22,17 +24,37 @@ export default function aboutRecipe({ navigation }) {
       <View style={styles.titleView}>
         <Text style={styles.title}> { navigation.getParam("title") } </Text>
       </View>
-      <View style={styles.ingredientsView}>
-        <Text style={styles.ingredients}> INGREDIENTS: </Text>
+
+      <View style={{flex: 1}}>
+
         <ScrollView style={styles.scrollIngredients}>
-          <Text style={styles.ingredients}> { navigation.getParam("text") } </Text>
+          <Image source={image} style={{width: "100%", height: 400, backgroundColor: "gray"}}/>
+          <View style={styles.ingredientsView}>
+            <Text style={styles.ingredients}> INGREDIENTS: </Text>
+          </View> 
+          <Text style={styles.ingredientsText}> { navigation.getParam("text") } </Text>
+          <View style={styles.ingredientsView}>
+            <Text style={styles.ingredients}> PORCEDURES: </Text>
+          </View>
+          <Video
+            ref={video}
+            style={{width: Dimensions.get('screen').width, 
+              height: Dimensions.get('screen').width/1.77, 
+              backgroundColor: "black",
+            }}
+            source={false ? { uri: vid } : vid }
+            useNativeControls
+            resizeMode="contain"
+            isLooping
+            onPlaybackStatusUpdate={status => setStatus(() => status)}
+          />
+          <Text style={styles.ingredientsText}> { navigation.getParam("text2") } </Text>
+
+          <TouchableOpacity style={styles.editBtn} onPress={() => editRecipe( navigation.getParam("title"))}>
+          <Text> EDIT </Text>
+        </TouchableOpacity>
         </ScrollView>
-        <TouchableOpacity style={styles.deleteBtn} onPress={() => deleteRecipe( navigation.getParam("id"))}>
-        <Text> DELETE </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.editBtn} onPress={() => editRecipe( navigation.getParam("id"))}>
-        <Text> EDIT </Text>
-        </TouchableOpacity>
+
       </View>
 
     </View>
@@ -42,12 +64,14 @@ export default function aboutRecipe({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#DBF3FA",
   },
   titleView: {
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
   title: {
     fontSize: 30,
@@ -56,17 +80,23 @@ const styles = StyleSheet.create({
   },
   ingredientsView: {
     flex: 1,
+    backgroundColor: "#F4F4F4",
   },
   ingredients: {
     fontSize: 20,
+    margin: 20
+  },
+  ingredientsText: {
+    fontSize: 20,
     marginTop: 20,
-    marginLeft: 30,
-    marginRight: 30,
+    marginBottom: 40,
+    marginLeft: 40,
+    marginRight: 40,
   },
   deleteBtn: {
     position: "absolute",
     padding: 8,
-    top: 20,
+    top: 10,
     right: 20,
     backgroundColor: "white",
     alignItems: "center",
@@ -74,18 +104,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   editBtn: {
-    position: "absolute",
-    padding: 8,
-    top: 20,
-    right: 100,
+    padding: 15,
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+    marginHorizontal: 40,
+    marginBottom: 40,
   },
   scrollIngredients: {
     flex: 1,
-    marginBottom: 10,
-    marginTop:10,
   },
 });

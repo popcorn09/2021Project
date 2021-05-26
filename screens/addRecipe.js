@@ -1,44 +1,39 @@
 import React, {useState} from "react";
-import { TextInput, StyleSheet, Text, View, TouchableOpacity} from "react-native";
+import { TextInput, StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { recipies } from "../screens/home";
-
-export function add() {
-  addButton();
-}
+import { recipes } from "../screens/home";
 
 export default function addRecipe({ navigation }) {
 
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState("");
-
-  const ingredientSet = (text) => {
-    console.log(text);
-    setIngredients(text);
-  }
+  const [procedures, setProcedures] = useState("");
 
   const addButton = () => {
-    console.log("Recipe Added");
-    var recipiesLength = recipies.length;
-  
-    for(var j = 0; j < recipiesLength - 1; j++) {
-      var nextId = parseInt(recipies[j].id) + 1;
-      console.log( nextId + " " + parseInt(recipies[j+1].id) );
-  
-      if ( nextId != parseInt(recipies[j+1].id) ) {
-        var id = parseInt(recipies[j].id) + 2; 
-        recipies.push({ title: name, text: ingredients, id: id });
-        console.log(" Added ID = " + id );
-        break;
+    var length = recipes.length;
+    var exist = false;
+    if (length == 0) {
+      recipes.push({ title: name, text: ingredients, text2: procedures});
+    } 
+    else {
+      for (var j = 0; j < length; j++) {
+        if (recipes[j].title == name) {
+          exist = true;
+          Alert.alert(
+            "Alert",
+            "The Recipe Name already exist",
+            [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+          );
+          break;
+        }
       }
-      else if ( j == recipiesLength - 2 ) {
-        var id = parseInt(recipies[j].id) + 2;
-        recipies.push({ title: name, text: ingredients, id: id });
-        console.log(" Added ID = " + id );
+      if (!exist) {
+        recipes.push({ title: name, text: ingredients, text2: procedures});
+        navigation.goBack();
+        console.log(recipes);
+        exist = false;
       }
-    }
-    navigation.goBack();
-    console.log(recipies);
+    } 
   }
 
   return (
@@ -49,13 +44,13 @@ export default function addRecipe({ navigation }) {
           <Text style={styles.inputText}> Recipe Name: </Text>
           <TextInput 
             style={styles.inputName}
-            onChangeText={name => setName(name)}/>
+            onChangeText={name => setName(name.trim())}/>
         </View>
         <View style={styles.inputView}>
           <Text style={styles.inputText}> Ingredients: </Text>
           <TextInput
             style={styles.inputIngredients}
-            onChangeText={ingredients => ingredientSet(ingredients)}
+            onChangeText={ingredients => setIngredients(ingredients.trim())}
             multiline={true}
             numberOfLine={10}/>
         </View>
@@ -63,11 +58,10 @@ export default function addRecipe({ navigation }) {
           <Text style={styles.inputText}> Procedures: </Text>
           <TextInput
             style={styles.inputIngredients}
-            onChangeText={ingredients => ingredientSet(ingredients)}
+            onChangeText={procedures => setProcedures(procedures.trim())}
             multiline={true}
             numberOfLine={10}/>
         </View>
-        
         
       </KeyboardAwareScrollView>
 
@@ -85,8 +79,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#DBF3FA",
   },
   inputView: {
-    marginHorizontal: 30,
-    marginTop: 30,
+    marginHorizontal: 40,
+    marginTop: 15,
   },
   inputName: {
     backgroundColor: "white",
@@ -110,17 +104,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   doneButton: {
-    flex: 1,
-    padding: 10,
-    margin: 70,
+    padding: 20,
+    marginVertical: 30,
+    marginHorizontal: 60,
     fontSize: 20,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 20,
-    right: 35,
-    bottom: 35,
-    position: "relative",
-    left: 1,
   },
 });

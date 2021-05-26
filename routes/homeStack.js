@@ -1,16 +1,18 @@
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import Home from "../screens/home";
 import AboutRecipe from "../screens/aboutRecipe";
 import AddRecipe from "../screens/addRecipe";
 
+
+
 const screens = {
     RecipeApp: {
         screen: Home,
         navigationOptions: {
-            title: "RECIPE APP"
+            title: "RECIPES"
         }
     },
     AboutRecipe: {
