@@ -1,20 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, Dimensions } from "react-native";
-import { recipes, images, videos } from "../screens/home";
+import { images, videos } from "../screens/home";
 import { Video } from "expo-av";
 
 
 
 export default function aboutRecipe({ navigation }) {
 
-  const video = React.useRef(null);
-  const [status, setStatus] = React.useState({});
+  const [height, setHeight] = useState(Dimensions.get('window').width/1.777);
+  const [update, setUpdate] = useState(false);
 
-  var image = images.recipes[ navigation.getParam("title") ];
-  var vid = videos.recipes[ navigation.getParam("title") ];
+  useEffect(() => {
+    navigation.addListener("willFocus", () => {
+      up();
+    })
+  })
 
-  const editRecipe = (title) => {
+  var image = images.recipes[ navigation.getParam("id") ];
+  var vid = videos.recipes[ navigation.getParam("id") ];
 
+  const up = () => {
+    if (update == true) {
+      setUpdate(false);
+    }
+    else {
+      setUpdate(true);
+    }
+  }
+
+  const editRecipe = () => {
+    var recipe = {
+      title: navigation.getParam("title"),
+      text: navigation.getParam("text"),
+      text2: navigation.getParam("text2"),
+    }
+    navigation.navigate("EditRecipe", recipe);
+  }
+
+  const mediaHeight = () => {
+    if (image == undefined) {
+      return (0);
+    } else {
+      return (height);
+    }
   }
   
   return (
@@ -28,7 +56,10 @@ export default function aboutRecipe({ navigation }) {
       <View style={{flex: 1}}>
 
         <ScrollView style={styles.scrollIngredients}>
-          <Image source={image} style={{width: "100%", height: 400, backgroundColor: "gray"}}/>
+          <Image source={image} style={{
+            width: Dimensions.get('window').width,
+            height: mediaHeight(),
+            backgroundColor: "gray"}} />
           <View style={styles.ingredientsView}>
             <Text style={styles.ingredients}> INGREDIENTS: </Text>
           </View> 
@@ -37,20 +68,19 @@ export default function aboutRecipe({ navigation }) {
             <Text style={styles.ingredients}> PORCEDURES: </Text>
           </View>
           <Video
-            ref={video}
-            style={{width: Dimensions.get('screen').width, 
-              height: Dimensions.get('screen').width/1.77, 
+            style={{width: Dimensions.get('window').width, 
+              height: mediaHeight(), 
               backgroundColor: "black",
             }}
             source={false ? { uri: vid } : vid }
             useNativeControls
             resizeMode="contain"
-            isLooping
-            onPlaybackStatusUpdate={status => setStatus(() => status)}
-          />
+            isLooping={false}
+            playInBackground={false}
+            playWhenInactive={false} />
           <Text style={styles.ingredientsText}> { navigation.getParam("text2") } </Text>
 
-          <TouchableOpacity style={styles.editBtn} onPress={() => editRecipe( navigation.getParam("title"))}>
+          <TouchableOpacity style={styles.editBtn} onPress={() => editRecipe()}>
           <Text> EDIT </Text>
         </TouchableOpacity>
         </ScrollView>

@@ -1,10 +1,9 @@
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
-import { Text, TouchableOpacity, View } from "react-native";
-import React from "react";
 import Home from "../screens/home";
 import AboutRecipe from "../screens/aboutRecipe";
 import AddRecipe from "../screens/addRecipe";
+import EditRecipe from "../screens/editRecipe";
 
 
 
@@ -27,6 +26,12 @@ const screens = {
             title: "ADD RECIPE"
         },
     },
+    EditRecipe: {
+        screen:EditRecipe,
+        navigationOptions: {
+            title: "EDIT RECIPE"
+        }
+    }
 }
 
 const HomeStack = createStackNavigator(screens, {

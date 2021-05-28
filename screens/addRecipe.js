@@ -1,7 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { TextInput, StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { recipes } from "../screens/home";
+
+
 
 export default function addRecipe({ navigation }) {
 
@@ -12,26 +14,34 @@ export default function addRecipe({ navigation }) {
   const addButton = () => {
     var length = recipes.length;
     var exist = false;
-    if (length == 0) {
-      recipes.push({ title: name, text: ingredients, text2: procedures});
-    } 
-    else {
-      for (var j = 0; j < length; j++) {
-        if (recipes[j].title == name) {
-          exist = true;
-          Alert.alert(
-            "Alert",
-            "The Recipe Name already exist",
-            [{ text: "OK", onPress: () => console.log("OK Pressed") }]
-          );
-          break;
-        }
-      }
-      if (!exist) {
-        recipes.push({ title: name, text: ingredients, text2: procedures});
+    if (name == "" || ingredients == "" || procedures == "") {
+      Alert.alert(
+        "Alert",
+        "Not all of the entry is filled",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+      );
+    } else {
+      if (length == 0) {
+        recipes.push({ title: name, text: ingredients, text2: procedures, id: 0});
         navigation.goBack();
-        console.log(recipes);
-        exist = false;
+      } 
+      else {
+        for (var j = 0; j < length; j++) {
+          if (recipes[j].title == name) {
+            exist = true;
+            Alert.alert(
+              "Alert",
+              "The Recipe Name already exist",
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+            );
+            break;
+          }
+        }
+        if (!exist) {
+          recipes.push({ title: name, text: ingredients, text2: procedures, id: 0});
+          navigation.goBack();
+          exist = false;
+        }
       }
     } 
   }
@@ -44,6 +54,7 @@ export default function addRecipe({ navigation }) {
           <Text style={styles.inputText}> Recipe Name: </Text>
           <TextInput 
             style={styles.inputName}
+            multiline
             onChangeText={name => setName(name.trim())}/>
         </View>
         <View style={styles.inputView}>
@@ -51,16 +62,14 @@ export default function addRecipe({ navigation }) {
           <TextInput
             style={styles.inputIngredients}
             onChangeText={ingredients => setIngredients(ingredients.trim())}
-            multiline={true}
-            numberOfLine={10}/>
+            multiline={true}/>
         </View>
         <View style={styles.inputView}>
           <Text style={styles.inputText}> Procedures: </Text>
           <TextInput
             style={styles.inputIngredients}
             onChangeText={procedures => setProcedures(procedures.trim())}
-            multiline={true}
-            numberOfLine={10}/>
+            multiline={true}/>
         </View>
         
       </KeyboardAwareScrollView>

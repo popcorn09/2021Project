@@ -1,27 +1,28 @@
-import React, {useState} from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Button } from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
 
 
 
 export const images = {
   recipes: {
-    "Chicken Adobo": require("../assets/chicken-adobo.jpg"),
-    "Japanese Pork Cutlet (Tonkatsu) with Curry": require("../assets/japanese-pork-cutlet-tonkatsu-with-curry.jpg"),
-    "Tempura Bowl": require("../assets/tempura-bowl.jpg"),
+    1: require("../assets/chicken-adobo.jpg"),
+    2: require("../assets/japanese-pork-cutlet-tonkatsu-with-curry.jpg"),
+    3: require("../assets/tempura-bowl.jpg"),
   }
 };
 
 export const videos = {
   recipes: {
-    "Chicken Adobo": require("../assets/chicken-adobo-vid.mp4"),
-    "Japanese Pork Cutlet (Tonkatsu) with Curry": require("../assets/japanese-pork-cutlet-tonkatsu-with-curry-vid.mp4"),
-    "Tempura Bowl": require("../assets/tempura-bowl-vid.mp4"),
+    1: require("../assets/chicken-adobo-vid.mp4"),
+    2: require("../assets/japanese-pork-cutlet-tonkatsu-with-curry-vid.mp4"),
+    3: require("../assets/tempura-bowl-vid.mp4"),
   }
 }
 
 export var recipes = [
   { 
+    id: 1,
     title: "Chicken Adobo", // Name of the Recipe
     text: // Ingredients
     "(for 4 serving) \n\n" +
@@ -45,6 +46,7 @@ export var recipes = [
     "7. Enjoy!", 
   },
   { 
+    id: 2,
     title: "Japanese Pork Cutlet (Tonkatsu) with Curry", // Name of the Recipe
     text: // Ingredients
     "(for 4 servings) \n\n" +
@@ -85,6 +87,7 @@ export var recipes = [
     "15. Enjoy!",
   },
   { 
+    id: 3,
     title: "Tempura Bowl", // Name of the Recipe
     text: // Ingredients
     "(for 2 servings) \n\n" +
@@ -126,8 +129,19 @@ export default function Home({ navigation }) {
 
   const [update, setUpdate] = useState(false);
 
+  useEffect(() => {
+    navigation.addListener("willFocus", () => {
+      up();
+    })
+  })
+
   const up = () => {
-    setUpdate(true);
+    if (update == true) {
+      setUpdate(false);
+    }
+    else {
+      setUpdate(true);
+    }
   }
 
   const moreInfoPressHandler = (item) => {
