@@ -64,6 +64,16 @@ export default function editRecipe({ navigation }) {
     }
   };
 
+  const setImageMedia = () => {
+    setImage(null);
+    setImageIsUri(true);
+  }
+  
+  const setVideoMedia = () => {
+    setVideo(null);
+    setVideoIsUri(true);
+  }
+
   return (
     <View style={styles.container}>
     <KeyboardAwareScrollView style={{flex: 1}}>
@@ -74,6 +84,9 @@ export default function editRecipe({ navigation }) {
       <Image
         source={imageIsUri ? {uri: image}: image}
         style={styles.mediaStyle}/>
+      <TouchableOpacity style={{alignSelf: "center"}} onPress={() => setImage(null)}>
+        <Text style={{color: "#0084FF", marginBottom: 10}}> Delete Image </Text>
+      </TouchableOpacity>
 
       <TouchableOpacity style={styles.addMediaButton} onPress={pickVideo}>
         <Text style={styles.addMediaButtonText}> Add Video </Text>
@@ -84,6 +97,9 @@ export default function editRecipe({ navigation }) {
         useNativeControls
         resizeMode="contain"
         style={styles.mediaStyle}/>
+      <TouchableOpacity style={{alignSelf: "center"}} onPress={() => setVideo(null)}>
+        <Text style={{color: "#0084FF", marginBottom: 10}}> Delete Video </Text>
+      </TouchableOpacity>
 
       <View style={styles.inputView}>
         <Text style={styles.inputText}> Recipe Name: </Text>

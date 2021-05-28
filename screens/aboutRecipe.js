@@ -14,6 +14,8 @@ export default function aboutRecipe({ navigation }) {
   useEffect(() => {
     navigation.addListener("willFocus", () => {
       up();
+      setImage( navigation.getParam("image") );
+      setVideo( navigation.getParam("video") );
     })
   })
 
