@@ -22,7 +22,10 @@ export const videos = {
 
 export var recipes = [
   { 
-    id: 1,
+    imageIsUri: false,
+    videoIsUri: false,
+    image: require("../assets/chicken-adobo.jpg"),
+    video: require("../assets/chicken-adobo-vid.mp4"),
     title: "Chicken Adobo", // Name of the Recipe
     text: // Ingredients
     "(for 4 serving) \n\n" +
@@ -46,7 +49,10 @@ export var recipes = [
     "7. Enjoy!", 
   },
   { 
-    id: 2,
+    imageIsUri: false,
+    videoIsUri: false,
+    image: require("../assets/japanese-pork-cutlet-tonkatsu-with-curry.jpg"),
+    video: require("../assets/japanese-pork-cutlet-tonkatsu-with-curry-vid.mp4"),
     title: "Japanese Pork Cutlet (Tonkatsu) with Curry", // Name of the Recipe
     text: // Ingredients
     "(for 4 servings) \n\n" +
@@ -87,7 +93,10 @@ export var recipes = [
     "15. Enjoy!",
   },
   { 
-    id: 3,
+    imageIsUri: false,
+    videoIsUri: false,
+    image: require("../assets/tempura-bowl.jpg"),
+    video: require("../assets/tempura-bowl-vid.mp4"),
     title: "Tempura Bowl", // Name of the Recipe
     text: // Ingredients
     "(for 2 servings) \n\n" +

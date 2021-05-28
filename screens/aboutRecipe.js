@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, Dimensions } from "react-native";
-import { images, videos } from "../screens/home";
 import { Video } from "expo-av";
 
 
@@ -9,6 +8,8 @@ export default function aboutRecipe({ navigation }) {
 
   const [height, setHeight] = useState(Dimensions.get('window').width/1.777);
   const [update, setUpdate] = useState(false);
+  const [image, setImage] = useState( navigation.getParam("image") );
+  const [video, setVideo] = useState( navigation.getParam("video") );
 
   useEffect(() => {
     navigation.addListener("willFocus", () => {
@@ -16,8 +17,11 @@ export default function aboutRecipe({ navigation }) {
     })
   })
 
-  var image = images.recipes[ navigation.getParam("id") ];
-  var vid = videos.recipes[ navigation.getParam("id") ];
+  // useEffect(() => {
+  //   window.addEventListener("resize", () => {
+  //     setHeight(Dimensions.get('window').width/1.777);
+  //   })s
+  // })
 
   const up = () => {
     if (update == true) {
@@ -33,17 +37,30 @@ export default function aboutRecipe({ navigation }) {
       title: navigation.getParam("title"),
       text: navigation.getParam("text"),
       text2: navigation.getParam("text2"),
+      image: navigation.getParam("image"),
+      video: navigation.getParam("video"),
+      imageIsUri: navigation.getParam("imageIsUri"),
+      videoIsUri: navigation.getParam("videoIsUri")
     }
     navigation.navigate("EditRecipe", recipe);
   }
 
-  const mediaHeight = () => {
+  const imageMediaHeight = () => {
     if (image == undefined) {
       return (0);
     } else {
       return (height);
     }
   }
+
+  const videoMediaHeight = () => {
+    if (video == undefined) {
+      return (0);
+    } else {
+      return (height);
+    }
+  }
+
   
   return (
     
@@ -56,9 +73,9 @@ export default function aboutRecipe({ navigation }) {
       <View style={{flex: 1}}>
 
         <ScrollView style={styles.scrollIngredients}>
-          <Image source={image} style={{
+          <Image source={navigation.getParam("imageIsUri") ? {uri: navigation.getParam("image")}: navigation.getParam("image")} style={{
             width: Dimensions.get('window').width,
-            height: mediaHeight(),
+            height: imageMediaHeight(),
             backgroundColor: "gray"}} />
           <View style={styles.ingredientsView}>
             <Text style={styles.ingredients}> INGREDIENTS: </Text>
@@ -69,10 +86,10 @@ export default function aboutRecipe({ navigation }) {
           </View>
           <Video
             style={{width: Dimensions.get('window').width, 
-              height: mediaHeight(), 
+              height: videoMediaHeight(), 
               backgroundColor: "black",
             }}
-            source={false ? { uri: vid } : vid }
+            source={navigation.getParam("videoIsUri") ? {uri: navigation.getParam("video")}: navigation.getParam("video")}
             useNativeControls
             resizeMode="contain"
             isLooping={false}
