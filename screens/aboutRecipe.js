@@ -44,7 +44,7 @@ export default function aboutRecipe({ navigation }) {
       imageIsUri: navigation.getParam("imageIsUri"),
       videoIsUri: navigation.getParam("videoIsUri")
     }
-    navigation.navigate("EditRecipe", recipe);
+    navigation.navigate("EditRecipeScreen", recipe);
   }
 
   const imageMediaHeight = () => {
@@ -80,11 +80,11 @@ export default function aboutRecipe({ navigation }) {
             height: imageMediaHeight(),
             backgroundColor: "gray"}} />
           <View style={styles.ingredientsView}>
-            <Text style={styles.ingredients}> INGREDIENTS: </Text>
+            <Text style={styles.ingredients}>INGREDIENTS</Text>
           </View> 
-          <Text style={styles.ingredientsText}> { navigation.getParam("text") } </Text>
+          <Text style={styles.ingredientsText}>{ navigation.getParam("text") }</Text>
           <View style={styles.ingredientsView}>
-            <Text style={styles.ingredients}> PORCEDURES: </Text>
+            <Text style={styles.ingredients}>PROCEDURES</Text>
           </View>
           <Video
             style={{width: Dimensions.get('window').width, 
@@ -97,7 +97,7 @@ export default function aboutRecipe({ navigation }) {
             isLooping={false}
             playInBackground={false}
             playWhenInactive={false} />
-          <Text style={styles.ingredientsText}> { navigation.getParam("text2") } </Text>
+          <Text style={styles.ingredientsText}>{ navigation.getParam("text2") }</Text>
 
           <TouchableOpacity style={styles.editBtn} onPress={() => editRecipe()}>
           <Text> EDIT </Text>
@@ -133,7 +133,8 @@ const styles = StyleSheet.create({
   },
   ingredients: {
     fontSize: 20,
-    margin: 20
+    margin: 20,
+    textAlign: "center"
   },
   ingredientsText: {
     fontSize: 20,

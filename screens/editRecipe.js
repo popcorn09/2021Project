@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from "reac
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as ImagePicker from 'expo-image-picker';
 import { Video } from "expo-av";
-import { recipes } from "../screens/home";
+import { sampleRecipes, sampleRecipes2 } from "./recipeCategories";
 
 
 
@@ -18,17 +18,28 @@ export default function editRecipe({ navigation }) {
   const [videoIsUri, setVideoIsUri] = useState( navigation.getParam("videoIsUri") );
 
   const editButton = () => {
-      for (var j = 0; j < recipes.length; j++) {
-          if (navigation.getParam("title") == recipes[j].title) {
-              recipes[j].title = name;
-              recipes[j].text = ingredients;
-              recipes[j].text2 = procedures;
-              recipes[j].image = image;
-              recipes[j].video = video;
-              recipes[j].imageIsUri = imageIsUri;
-              recipes[j].videoIsUri = videoIsUri;
+      for (let j = 0; j < sampleRecipes.length; j++) {
+          if (navigation.getParam("title") == sampleRecipes[j].title) {
+            sampleRecipes[j].title = name;
+            sampleRecipes[j].text = ingredients;
+            sampleRecipes[j].text2 = procedures;
+            sampleRecipes[j].image = image;
+            sampleRecipes[j].video = video;
+            sampleRecipes[j].imageIsUri = imageIsUri;
+            sampleRecipes[j].videoIsUri = videoIsUri;
           }
       }
+      for (let j = 0; j < sampleRecipes2.length; j++) {
+        if (navigation.getParam("title") == sampleRecipes2[j].title) {
+          sampleRecipes2[j].title = name;
+          sampleRecipes2[j].text = ingredients;
+          sampleRecipes2[j].text2 = procedures;
+          sampleRecipes2[j].image = image;
+          sampleRecipes2[j].video = video;
+          sampleRecipes2[j].imageIsUri = imageIsUri;
+          sampleRecipes2[j].videoIsUri = videoIsUri;
+        }
+    }
       navigation.goBack();
   }
 
@@ -43,8 +54,8 @@ export default function editRecipe({ navigation }) {
     console.log(result);
 
     if (!result.cancelled) {
-      setImage(result.uri);
       setImageIsUri(true);
+      setImage(result.uri);
     }
   };
 
@@ -76,7 +87,9 @@ export default function editRecipe({ navigation }) {
 
   return (
     <View style={styles.container}>
-    <KeyboardAwareScrollView style={{flex: 1}}>
+    <KeyboardAwareScrollView
+      style={{flex: 1}}
+      contentInset = {{bottom: 60}}>
         
       <TouchableOpacity style={styles.addMediaButton} onPress={pickImage}>
         <Text style={styles.addMediaButtonText}> Add Photo </Text>
@@ -107,23 +120,26 @@ export default function editRecipe({ navigation }) {
           value={name}
           style={styles.inputName}
           multiline
-          onChangeText={name => setName(name.trim())}/>
+          onChangeText={name => setName(name)}
+          scrollEnabled={false}/>
       </View>
       <View style={styles.inputView}>
         <Text style={styles.inputText}> Ingredients: </Text>
         <TextInput
           value={ingredients}
           style={styles.inputIngredients}
-          onChangeText={ingredients => setIngredients(ingredients.trim())}
-          multiline={true}/>
+          onChangeText={ingredients => setIngredients(ingredients)}
+          multiline={true}
+          scrollEnabled={false}/>
       </View>
-      <View style={styles.inputView}>
+      <View style={styles.inputViewEnd}>
         <Text style={styles.inputText}> Procedures: </Text>
         <TextInput
           value={procedures}
           style={styles.inputIngredients}
-          onChangeText={procedures => setProcedures(procedures.trim())}
-          multiline={true}/>
+          onChangeText={procedures => setProcedures(procedures)}
+          multiline={true}
+          scrollEnabled={false}/>
       </View>
         
     </KeyboardAwareScrollView>
@@ -144,8 +160,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#DBF3FA",
   },
   inputView: {
-    marginHorizontal: 40,
+    marginHorizontal: 20,
     marginTop: 15,
+  },
+  inputViewEnd: {
+    marginHorizontal: 20,
+    marginTop: 15,
+    margin: 400,
   },
   inputName: {
     backgroundColor: "white",
@@ -161,8 +182,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     padding: 10,
     color: "black",
-    borderRadius: 10,
-    height: 200,
+    borderRadius: 10
   },
   inputText: {
     fontSize: 20,

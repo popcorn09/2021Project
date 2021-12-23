@@ -1,6 +1,7 @@
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
-import Home from "../screens/home";
+import RecipeCategories from "../screens/recipeCategories";
+import CategorizedRecipes from "../screens/categorizedRecipes";
 import AboutRecipe from "../screens/aboutRecipe";
 import AddRecipe from "../screens/addRecipe";
 import EditRecipe from "../screens/editRecipe";
@@ -8,25 +9,31 @@ import EditRecipe from "../screens/editRecipe";
 
 
 const screens = {
-    RecipeApp: {
-        screen: Home,
+    CategoryScreen: {
+        screen: RecipeCategories,
+        navigationOptions: {
+            title: "RECIPE CATEGORIES"
+        }
+    },
+    RecipesScreen: {
+        screen: CategorizedRecipes,
         navigationOptions: {
             title: "RECIPES"
         }
     },
-    AboutRecipe: {
+    AboutRecipeScreen: {
         screen: AboutRecipe,
         navigationOptions: {
             title: " "
         }
     },
-    AddRecipe: {
+    AddRecipeScreen: {
         screen: AddRecipe,
         navigationOptions: {
             title: "ADD RECIPE"
         },
     },
-    EditRecipe: {
+    EditRecipeScreen: {
         screen:EditRecipe,
         navigationOptions: {
             title: "EDIT RECIPE"
@@ -38,7 +45,7 @@ const HomeStack = createStackNavigator(screens, {
     defaultNavigationOptions: {
         headerTitleAlign: "center",
         headerTintColor: "#444",
-        headerStyle: { height: 80 },
+        headerStyle: { height: 80, backgroundColor: "white" },
         headerTitleStyle: {
             fontSize: 28,
             fontWeight: "bold",

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { TextInput, StyleSheet, Text, View, TouchableOpacity, Alert, Image } from "react-native";
+import { TextInput, StyleSheet, Text, View, TouchableOpacity, Alert, Image, KeyboardAvoidingView } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as ImagePicker from 'expo-image-picker';
 import { Video } from "expo-av";
-import { recipes } from "../screens/home";
+import { sampleRecipes, sampleRecipes2 } from "./recipeCategories";
 
 
 
 export default function addRecipe({ navigation }) {
-
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [procedures, setProcedures] = useState("");
@@ -57,8 +56,8 @@ export default function addRecipe({ navigation }) {
   };
 
   const addButton = () => {
-    var length = recipes.length;
-    var exist = false;
+    let length = sampleRecipes.length;
+    let exist = false;
     if (name == "" || ingredients == "" || procedures == "") {
       Alert.alert(
         "Alert",
@@ -67,12 +66,13 @@ export default function addRecipe({ navigation }) {
       );
     } else {
       if (length == 0) {
-        recipes.push({ imageIsUri: true, videoIsUri: true, image: image, video: video, title: name, text: ingredients, text2: procedures});
+        sampleRecipes.push({ categoryType: navigation.getParam("categoryType"), imageIsUri: true, videoIsUri: true, image: image, video: video, title: name, text: ingredients, text2: procedures});
+        sampleRecipes2.push({ categoryType: navigation.getParam("categoryType"), imageIsUri: true, videoIsUri: true, image: image, video: video, title: name, text: ingredients, text2: procedures});
         navigation.goBack();
       } 
       else {
-        for (var j = 0; j < length; j++) {
-          if (recipes[j].title == name) {
+        for (let j = 0; j < length; j++) {
+          if (sampleRecipes[j].title == name) {
             exist = true;
             Alert.alert(
               "Alert",
@@ -83,7 +83,8 @@ export default function addRecipe({ navigation }) {
           }
         }
         if (!exist) {
-          recipes.push({ imageIsUri: true, videoIsUri: true, image: image, video: video, title: name, text: ingredients, text2: procedures});
+          sampleRecipes.push({ categoryType: navigation.getParam("categoryType"), imageIsUri: true, videoIsUri: true, image: image, video: video, title: name, text: ingredients, text2: procedures});
+          sampleRecipes2.push({ categoryType: navigation.getParam("categoryType"), imageIsUri: true, videoIsUri: true, image: image, video: video, title: name, text: ingredients, text2: procedures});
           navigation.goBack();
           exist = false;
         }
@@ -93,7 +94,10 @@ export default function addRecipe({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <KeyboardAwareScrollView style={{flex: 1}}>
+      <KeyboardAwareScrollView
+      style={{flex: 1}}
+      contentInset = {{bottom: 60}}>
+        <KeyboardAvoidingView>
         
         <TouchableOpacity style={styles.addMediaButton} onPress={pickImage}>
           <Text style={styles.addMediaButtonText}> Add Photo </Text>
@@ -117,23 +121,28 @@ export default function addRecipe({ navigation }) {
           <TextInput 
             style={styles.inputName}
             multiline
-            onChangeText={name => setName(name.trim())}/>
+            onChangeText={name => setName(name.trim())}
+            scrollEnabled={false}/>
         </View>
         <View style={styles.inputView}>
           <Text style={styles.inputText}> Ingredients: </Text>
           <TextInput
             style={styles.inputIngredients}
             onChangeText={ingredients => setIngredients(ingredients.trim())}
-            multiline={true}/>
+            multiline={true}
+            scrollEnabled={false}/>
         </View>
-        <View style={styles.inputView}>
+        <View style={styles.inputViewEnd}>
           <Text style={styles.inputText}> Procedures: </Text>
           <TextInput
             style={styles.inputIngredients}
             onChangeText={procedures => setProcedures(procedures.trim())}
-            multiline={true}/>
+            multiline={true}
+            scrollEnabled={false}/>
         </View>
         
+        </KeyboardAvoidingView>
+
       </KeyboardAwareScrollView>
 
       <View style={{borderTopWidth: 0.5}}>
@@ -152,8 +161,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#DBF3FA",
   },
   inputView: {
-    marginHorizontal: 40,
+    marginHorizontal: 20,
     marginTop: 15,
+  },
+  inputViewEnd: {
+    marginHorizontal: 20,
+    marginTop: 15,
+    margin: 400,
   },
   inputName: {
     backgroundColor: "white",
@@ -169,8 +183,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     padding: 10,
     color: "black",
-    borderRadius: 10,
-    height: 200,
+    borderRadius: 10
   },
   inputText: {
     fontSize: 20,
