@@ -147,7 +147,7 @@ export default function addRecipe({ navigation }) {
 
       <View style={{borderTopWidth: 0.5}}>
         <TouchableOpacity style={styles.doneButton} onPress={addButton}>
-          <Text style={{fontSize: 20}}> Done </Text>
+          <Text style={{ fontSize: 20, fontWeight: "bold", color: "#fff" }}> Done </Text>
         </TouchableOpacity>
       </View>
 
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "red",
     borderRadius: 20,
   },
   addMediaButton: {

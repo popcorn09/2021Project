@@ -7,7 +7,7 @@ import { sampleRecipes, sampleRecipes2 } from "./recipeCategories";
 export default function categorizedRecipes({ navigation }) {
   const [categoryType, setCategoryType] = useState( navigation.getParam("categoryType") );
   const [update, setUpdate] = useState( false );
-  const [height, setHeight] = useState( Dimensions.get('window').width/1.777 );
+  const [height, setHeight] = useState( Dimensions.get('window').width/1.777);
   const [recipes, setRecipes] = useState();
 
   useEffect(() => {
@@ -83,7 +83,8 @@ export default function categorizedRecipes({ navigation }) {
         animated={true}
         backgroundColor="#61dafb"
         barStyle={"dark-content"}
-        showHideTransition={"none"} />
+        showHideTransition={"none"} 
+      />
 
       <SwipeListView style={styles.recipesList}
         keyExtractor={(item) => item.title}
@@ -111,11 +112,9 @@ export default function categorizedRecipes({ navigation }) {
           </TouchableOpacity>
         )}
       />
-
       <TouchableOpacity style={styles.addButton} onPress={openAddRecipe}>
         <Text style={styles.plusText}> + </Text>
       </TouchableOpacity>
-      
     </View>
   );
 }
@@ -127,12 +126,13 @@ const styles = StyleSheet.create({
   recipesList: {
     flex: 1,
     paddingTop: 5,
-    backgroundColor: "white",
+    backgroundColor: "#F9F6F2",
   },
   recipeView: {
     backgroundColor: "white",
     borderRadius: 20,
     marginTop: 10,
+    marginBottom: 10,
     marginHorizontal: 20,
     shadowColor: "green",
     justifyContent: "center",
@@ -148,7 +148,10 @@ const styles = StyleSheet.create({
     color: "#3C3C3C",
     fontSize: 20,
     fontWeight: "bold",
-    margin: 20,
+    marginLeft: 20,
+    marginBottom: 10,
+    marginRight: 20,
+    marginTop: 9,
     textAlign: "center"
   },
   hiddenDelete: {
@@ -168,20 +171,34 @@ const styles = StyleSheet.create({
     textAlign: "right",
   },
   addButton: { 
-    height: 70,
-    width: 70,
+    /*height: 50,
+    width: 50,
     backgroundColor: "#DCDCDC",
     borderRadius: 200,
     position: "absolute",
     right: 30,
     bottom: 30,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center",*/
+
+    backgroundColor: '#fc454e',
+    width: 66,
+    height: 66,
+    borderRadius: 33,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 20,
+    right: 20
   },
   plusText: {
-    fontSize: 45,
+    /*fontSize: 45,
     fontWeight: "bold",
     color: "gray",
-    marginBottom: 5,
+    marginBottom: 5, */
+
+    color: 'white',
+    fontSize: 45,
+    marginBottom: 6
   },
 });

@@ -100,12 +100,10 @@ export default function aboutRecipe({ navigation }) {
           <Text style={styles.ingredientsText}>{ navigation.getParam("text2") }</Text>
 
           <TouchableOpacity style={styles.editBtn} onPress={() => editRecipe()}>
-          <Text> EDIT </Text>
+          <Text style={{ fontSize: 20, fontWeight: "bold", color: "#fff" }}> EDIT </Text>
         </TouchableOpacity>
         </ScrollView>
-
       </View>
-
     </View>
   );
 }
@@ -113,13 +111,13 @@ export default function aboutRecipe({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#DBF3FA",
+    backgroundColor: "white",
   },
   titleView: {
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 10,
+    paddingVertical: 20,
     paddingHorizontal: 20,
   },
   title: {
@@ -129,10 +127,12 @@ const styles = StyleSheet.create({
   },
   ingredientsView: {
     flex: 1,
-    backgroundColor: "#F4F4F4",
+    backgroundColor: "white",
   },
   ingredients: {
-    fontSize: 20,
+    fontSize: 30,
+    fontWeight: "bold",
+    color: '#fc454e',
     margin: 20,
     textAlign: "center"
   },
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 40,
     marginLeft: 40,
-    marginRight: 40,
+    marginRight: 40
   },
   deleteBtn: {
     position: "absolute",
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   },
   editBtn: {
     padding: 15,
-    backgroundColor: "white",
+    backgroundColor: "#fc454e",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,

@@ -115,6 +115,64 @@ export let sampleRecipes = [
     "8. Arrange assorted tempura on a bowl of rice. \n\n" +
     "9. Enjoy!", 
   },
+  { 
+    categoryType: "Chicken Recipes",
+    imageIsUri: false,
+    //videoIsUri: false
+    image: require("../assets/Chicken-Curry.jpg"),
+    //video: require("../assets/tempura-bowl-vid.mp4"),
+    title: "Chicken Curry", // Name of the Recipe
+    text: // Ingredients
+    "- 1 Kilo Chicken \n" +
+    "- 2 medium sized potatoes, chopped \n" +
+    "- 1 big carrot, sliced \n" +
+    "- 1 tbsp garlic, minced \n" +
+    "- 3 stalks celery, cut into 2 inches length \n" +
+    "- 1 medium onion, chopped \n" +
+    "- 1 small red bell pepper, cut into cubes \n" +
+    "- 2 tbsp fish sauce \n" +
+    "- 1 cup coconut milk \n" +
+    "- 2 tbsp curry powder \n" +
+    "- 1 thumb ginger, cut into strips \n" +
+    "- 1 cup water \n",
+    
+    text2: // Procedures
+    "1. Cut the chicken into pieces. Leave the chicken bone-in. If you prefer boneless chicken meat, then de-bone the chicken. \n\n" +
+    "2. Heat up a deep pot and add the oil. \n\n" +
+    "3. Fry the potato and carrots for 2 minutes and set aside. \n\n" +
+    "4. Saute chicken together with garlic, onion and ginger. \n\n" +
+    "5. When garlic is light brown in color, add fish sauce and curry powder. \n\n" +
+    "6. Stir well. Add water then cover the pot and lower the heat to medium. Simmer until the chicken is tender.  \n\n" +
+    "7. Once the chicken is cooked, add the red bell pepper, celery, carrot and potato. Then simmer for 5 minutes. \n\n" +
+    "8. Add the coconut milk and mix well. Simmer for another 5 minutes. \n\n" +
+    "9. Serve hot with rice. ",
+  },
+  { 
+    categoryType: "Pork Recipes",
+    imageIsUri: false,
+    //videoIsUri: false
+    image: require("../assets/Pork-Steak-Recipe.jpg"),
+    //video: require("../assets/tempura-bowl-vid.mp4"),
+    title: "Pork Steak", // Name of the Recipe
+    text: // Ingredients
+    "- 4 to 5 pieces pork chops \n" +
+    "- 5 tablespoons soy sauce \n" +
+    "- 2 pieces lime or 1 piece lemon \n" +
+    "- 1/2 cup cooking oil \n" +
+    "- 2 medium onions, sliced \n" +
+    "- 1 1/2 cups water \n" +
+    "- 1 tablespoon granulated white sugar \n" +
+    "- Salt and Pepper to taste \n",
+    
+    text2: // Procedures
+    "1. Combine pork chops, soy sauce, and lime(or lemon) juice in a large bowl or container. Marinade for at least 1 hour.  \n\n" +
+    "2. Heat a pan then pour-in cooking oil. \n\n" +
+    "3. Pan-fry the marinated pork chops in medium heat for 3 to 5 minutes per side. \n\n" +
+    "4. Remove excess oil. Pour-in the remaining marinade and water and let it boil. Simmer for 45 minutes or until the pork is tender. Note: Add water as needed. \n\n" +
+    "5. Add-in the sugar, salt, and pepper then stir. \n\n" +
+    "6. Put-in the onions and cook for 3 minutes more.  \n\n" +
+    "7. Turn off the heat and transfer to a serving plate. \n\n",
+  },
 ];
 
 export let sampleRecipes2;
@@ -209,12 +267,13 @@ const styles = StyleSheet.create({
   recipesList: {
     flex: 1,
     paddingTop: 5,
-    backgroundColor: "white",
+    backgroundColor: "#F9F6F2",
   },
   recipeView: {
     backgroundColor: "white",
     borderRadius: 20,
-    marginTop: 10,
+    marginTop: 20,
+    marginBottom: 10,
     marginHorizontal: 20,
     shadowColor: "green",
     justifyContent: "center",
@@ -230,11 +289,14 @@ const styles = StyleSheet.create({
     color: "#3C3C3C",
     fontSize: 20,
     fontWeight: "bold",
-    margin: 20,
+    marginLeft: 20,
+    marginBottom: 10,
+    marginRight: 20,
+    marginTop: 9,
     textAlign: "center"
   },
   hiddenDelete: {
-    backgroundColor: "red",
+    backgroundColor: "#fc454e",
     borderRadius: 20,
     marginTop: 11,
     marginLeft: 25,

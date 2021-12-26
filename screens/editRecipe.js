@@ -146,7 +146,7 @@ export default function editRecipe({ navigation }) {
 
     <View style={{borderTopWidth: 0.5}}>
       <TouchableOpacity style={styles.doneButton} onPress={editButton}>
-        <Text style={{fontSize: 20}}> Save Changes </Text>
+        <Text style={{ fontSize: 20, fontWeight: "bold", color: "#fff" }}> Save Changes </Text>
       </TouchableOpacity>
     </View>
 
@@ -186,7 +186,8 @@ const styles = StyleSheet.create({
   },
   inputText: {
     fontSize: 20,
-    marginBottom: 10,
+    fontWeight: "bold",
+    marginBottom: 10
   },
   doneButton: {
     padding: 20,
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "red",
     borderRadius: 20,
   },
   addMediaButton: {
